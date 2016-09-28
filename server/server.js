@@ -52,9 +52,7 @@ app.put('/api/seniors/:userId', (req, res, err) => {
     const updatedInformation = req.body;
     const userId = req.params.userId;
     Seniors
-        .findByIdAndUpdate(userId, updatedInformation, (err, result) => {
-            if(err) {console.log(err)}
-        })
+        .findOneAndUpdate({"_id": userId}, updatedInformation, {upsert: true})
         .then(senior => res.status(200).json(senior))
         .catch(err)
 })
