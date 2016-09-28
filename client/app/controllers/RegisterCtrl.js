@@ -1,6 +1,18 @@
-app.controller('RegisterCtrl', function($scope, $location) {
+app.controller('RegisterCtrl', function($scope, $location, $http) {
   $scope.registerPressed = () => {
-    console.log($scope.email, $scope.password);
-    $location.path('profile/create');
+
+    const user = {
+      email: $scope.email,
+      password: $scope.password
+    };
+
+    $http.post('/api/seniors', user)
+      .then((newUser) => {
+        $location.path('profile/create/' + newUser._id);
+      })
+      .catch(() => {
+        $location.path('register');
+      });
+
   }
 });

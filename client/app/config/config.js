@@ -8,7 +8,7 @@ app.config(function($routeProvider) {
       controller: 'RegisterCtrl',
       templateUrl: 'partials/register.html'
     })
-    .when('/profile/create', {
+    .when('/profile/create/:userId', {
       controller: 'CreateProfileCtrl',
       templateUrl: 'partials/create_profile.html'
     })

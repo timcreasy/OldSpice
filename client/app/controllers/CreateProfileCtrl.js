@@ -1,9 +1,13 @@
-app.controller('CreateProfileCtrl', function($scope) {
+app.controller('CreateProfileCtrl', function($scope, $routeParams, $http) {
 
-  // With JQuery
-  let ageRangeSlider = $("#ageRange").slider({});
+  // Age slider method
+  const ageRangeSlider = $("#ageRange").slider({});
+
+  // Grab userId
+  const userId = $routeParams.userId;
 
   $scope.createProfilePressed = () => {
+
     const userProfile = {
       name: $scope.name,
       age: $scope.age,
@@ -15,6 +19,15 @@ app.controller('CreateProfileCtrl', function($scope) {
         gender: $scope.genderPreference
       }
     };
+
+    // Build up path to user
+    const userPath = `/api/seniors/${userId}`;
+
+    $http.put(userPath, userProfile)
+      .then((user) => {
+
+      })
+      .catch();
 
     console.log(userProfile);
   }
