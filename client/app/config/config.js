@@ -16,5 +16,9 @@ app.config(function($routeProvider) {
       controller: 'BrowseCtrl',
       templateUrl: 'partials/browse.html'
     })
+    .when('/profile/:userId', {
+      controller: 'ViewProfileCtrl',
+      templateUrl: 'partials/view_profile.html'
+    })
     .otherwise('/');
 })
