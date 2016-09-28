@@ -1,0 +1,40 @@
+<form ng-submit="createProfilePressed()">
+  <h3>Your Info</h3>
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input ng-model="name" type="text" class="form-control" id="name" aria-describedby="name" placeholder="Enter name">
+  </div>
+  <div class="form-group">
+    <label for="location">Location:</label>
+    <input ng-model="location" type="text" class="form-control" id="location" aria-describedby="location" placeholder="Your location">
+  </div>
+  <div class="form-group">
+    <label for="age">Age: {{age}}</label>
+    <input ng-model="age" type="range" id="age" min="18" max="120" step="1" />
+  </div>
+  <div class="form-group">
+    <label for="gender">Gender:</label>
+    <select ng-model="gender" class="form-control" id="gender">
+      <option selected disabled>Your Gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+  </div>
+  <div class="form-group">
+  <h3>Preferences</h3>
+    <label>Age Range:</label>
+    <br>
+    <b>18</b><input id="ageRange" type="text" class="span2" value="" data-slider-min="18" data-slider-max="120" data-slider-step="1" data-slider-value="[18,120]"/><b>120</b>
+    <br>
+  </div>
+  <div class="form-group">
+    <label for="genderPreference">Gender Preference:</label>
+    <select ng-model="genderPreference" class="form-control" id="genderPreference">
+      <option selected disabled>Your Gender Preference</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="both">Both</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
