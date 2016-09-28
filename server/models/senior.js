@@ -3,10 +3,10 @@
 const mongoose = require('mongoose');
 
 module.exports = mongoose.model("Senior", {
-    "name": String,
     "email": String, 
     "password": String,
     "profile": {
+        "name": String,
         "age": Number,
         "gender": String,
         "location": String,

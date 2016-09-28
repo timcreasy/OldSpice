@@ -48,6 +48,15 @@ app.post('/api/chats', (req, res, err) => {
         .catch(err)
 })
 
+app.put('/api/seniors/:userId', (req, res, err) => {
+    const updatedInformation = req.body;
+    const userId = req.params.userId;
+    Seniors
+        .findByIdAndUpdate(userId, updatedInformation, (err, result) => {
+            if(err) {console.log(err)}
+        })
+})
+
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URL, () => {
