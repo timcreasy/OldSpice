@@ -4,6 +4,7 @@ app.controller('CreateProfileCtrl', function($scope) {
   let ageRangeSlider = $("#ageRange").slider({});
 
   $scope.createProfilePressed = () => {
+
     const userProfile = {
       name: $scope.name,
       age: $scope.age,
