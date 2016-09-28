@@ -1,0 +1,23 @@
+{
+  "name": "olddate",
+  "description": "",
+  "main": "server/server.js",
+  "authors": [
+    "Tim Creasy <timcreasy@me.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "angular": "^1.5.8"
+  }
+}
