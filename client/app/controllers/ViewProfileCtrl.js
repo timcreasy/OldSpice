@@ -2,12 +2,12 @@ app.controller('ViewProfileCtrl', function($scope, $routeParams, $http) {
   const userPath = `/api/seniors/${$routeParams.userId}`;
   $scope.user = "";
   $http.get(userPath)
-    .then((user) => {
-      console.log("USER", user);
-      $scope.user = user;
+    .then(({data}) => {
+      $scope.user = data.profile;
+      $scope.user._id = data._id;
     });
 
-  $scope.chatPressed = () => {
-    console.log("CHAT PRESSED");
+  $scope.chatPressed = (userId) => {
+    console.log("CHAT PRESSED with:", userId);
   }
 });
