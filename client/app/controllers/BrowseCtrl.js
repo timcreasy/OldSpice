@@ -1,4 +1,5 @@
-app.controller('BrowseCtrl', function($scope, $http) {
+app.controller('BrowseCtrl', function($scope, $http, $rootScope) {
+  $rootScope.browseView = true;
 
   $scope.users = "";
 
@@ -6,5 +7,10 @@ app.controller('BrowseCtrl', function($scope, $http) {
     .then(({data: {seniorObject}}) => {
       $scope.users = seniorObject;
     });
+
+
+  $scope.$on('$destroy',function(){
+    $rootScope.browseView = false;
+  });
 
 });
