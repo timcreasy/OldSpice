@@ -8,7 +8,7 @@ app.controller('RegisterCtrl', function($scope, $location, $http) {
 
     $http.post('/api/seniors', user)
       .then((newUser) => {
-        $location.path('profile/create/');
+        $location.path('profile/create/' + newUser._id);
       })
       .catch(() => {
         $location.path('register');
