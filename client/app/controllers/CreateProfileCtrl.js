@@ -23,7 +23,7 @@ app.controller('CreateProfileCtrl', function($scope, $routeParams, $http) {
     // Build up path to user
     const userPath = `/api/seniors/${userId}`;
 
-    $http.put(userPath, userProfile)
+    $http.put(userPath, {profile: userProfile})
       .then((user) => {
 
       })

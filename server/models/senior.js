@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 module.exports = mongoose.model("Senior", {
     "email": String, 
     "password": String,
-    "profile": {
+    "profile": { type:{
         "name": String,
         "age": Number,
         "gender": String,
@@ -15,5 +15,5 @@ module.exports = mongoose.model("Senior", {
             "maxAge": Number,
             "gender": String
         }
-    }
+    }, default: {}}
 })
