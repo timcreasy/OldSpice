@@ -57,6 +57,14 @@ app.put('/api/seniors/:userId', (req, res, err) => {
         .catch(err)
 })
 
+app.get('/api/seniors/:userId', (req, res, err) => {
+    const userId = req.params.userId
+
+    Seniors
+        .findById(userId)
+        .then(senior => res.status(200).json(senior))
+        .catch(err)
+})
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URL, () => {
