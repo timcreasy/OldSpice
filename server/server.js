@@ -55,6 +55,8 @@ app.put('/api/seniors/:userId', (req, res, err) => {
         .findByIdAndUpdate(userId, updatedInformation, (err, result) => {
             if(err) {console.log(err)}
         })
+        .then(senior => res.status(200).json(senior))
+        .catch(err)
 })
 
 
