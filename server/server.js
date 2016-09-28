@@ -30,10 +30,10 @@ app.post('/api/seniors', (req, res, err) => {
         .create(req.body)
         .then(senior => res.status(201).json(senior))
         .catch(err)
-}) 
+})
 
 app.get('/api/chats', (req, res, err) => {
-    Chats  
+    Chats
         .find()
         .then((chatObject) => {
             res.json( { chatObject} )
