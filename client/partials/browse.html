@@ -3,7 +3,7 @@
      <a ng-href="#/profile/{{user._id}}">
         <div class="card">
           <div>
-            <img class="card-img-top cardImage" src="http://cdn.playbuzz.com/cdn/e22985e7-b45c-4e61-89c7-2a5458d22131/840b4a44-bf09-48fd-8066-c021eae58b30_560_420.jpg" alt="Card image cap">
+            <img class="card-img-top cardImage" ng-src="{{user.profile.profilePicture}}" alt="Card image cap">
           </div>
           <div class="card-block">
             <h4 class="card-title">{{user.profile.name}}</h4>

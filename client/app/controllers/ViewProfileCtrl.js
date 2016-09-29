@@ -1,4 +1,4 @@
-app.controller('ViewProfileCtrl', function($scope, $routeParams, $http) {
+app.controller('ViewProfileCtrl', function($scope, $routeParams, $http, $rootScope) {
   const userPath = `/api/seniors/${$routeParams.userId}`;
   $scope.user = "";
   $http.get(userPath)
@@ -7,7 +7,36 @@ app.controller('ViewProfileCtrl', function($scope, $routeParams, $http) {
       $scope.user._id = data._id;
     });
 
-  $scope.chatPressed = (userId) => {
-    console.log("CHAT PRESSED with:", userId);
+  function compare(personOne, personTwo) {
+    if (personOne.userId < personTwo.userId)
+      return -1;
+    if (personOne.userId > personTwo.userId)
+      return 1;
+  }
+
+  $scope.chatPressed = (user) => {
+
+    let usersArray = [
+        {
+          userId: $rootScope.user._id,
+          userName: $rootScope.user.profile.name
+        },
+        {
+          userId: user._id,
+          userName: user.name
+        }
+      ];
+
+    usersArray.sort(compare);
+
+    const usersObj = {
+      users: usersArray
+    }
+
+    $http.post('/api/chats', usersObj)
+      .then((response) => {
+        console.log(response);
+      })
+
   }
 });

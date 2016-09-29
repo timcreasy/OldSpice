@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function($scope, $location, $http) {
+app.controller('LoginCtrl', function($scope, $location, $http, $rootScope) {
   $scope.loginPressed = () => {
 
     const user = {
@@ -8,6 +8,7 @@ app.controller('LoginCtrl', function($scope, $location, $http) {
 
     $http.post('/api/login', user)
       .then(({data}) => {
+        $rootScope.user = data;
         $location.path('browse');
       })
       .catch(() => {

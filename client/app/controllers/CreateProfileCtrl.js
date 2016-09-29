@@ -1,4 +1,4 @@
-app.controller('CreateProfileCtrl', function($scope, $routeParams, $http) {
+app.controller('CreateProfileCtrl', function($scope, $routeParams, $http, $location) {
 
   // Age slider method
   const ageRangeSlider = $("#ageRange").slider({});
@@ -22,17 +22,14 @@ app.controller('CreateProfileCtrl', function($scope, $routeParams, $http) {
       }
     };
 
-    console.log("PROFILE", userProfile);
-
     // Build up path to user
     const userPath = `/api/seniors/${userId}`;
 
     $http.put(userPath, {profile: userProfile})
       .then((user) => {
-
       })
       .catch();
 
-    console.log(userProfile);
+    $location.path('browse');
   }
 });
