@@ -81,7 +81,7 @@ app.get('/api/seniors/:userId', (req, res, err) => {
 
 
 app.post('/api/login', ( { session, body: {email, password}}, res, err ) => {
-    
+
     Seniors.findOne({ email })
         .then(user => {
             if (user && password === user.password) {
