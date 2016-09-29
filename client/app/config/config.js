@@ -1,4 +1,4 @@
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $locationProvider) {
   $routeProvider
     .when('/', {
       controller: 'HomeCtrl',
@@ -24,9 +24,13 @@ app.config(function($routeProvider) {
       controller: 'ViewProfileCtrl',
       templateUrl: 'partials/view_profile.html'
     })
-    .when('/chats/:id', {
-      controller: 'ViewProfileCtrl',
+    .when('/chats/:chatId', {
+      controller: 'ChatCtrl',
       templateUrl: 'partials/chat.html'
     })
     .otherwise('/');
+    $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false,
+    })
 })
