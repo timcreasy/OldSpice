@@ -3,8 +3,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { json } = require('body-parser');
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
 
-const app = express()
+
+const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/oldspice';
 
@@ -14,6 +17,15 @@ const Chats = require('./models/chat.js')
 
 app.use(express.static('client'));
 app.use(json());
+app.use(session({
+    store: new RedisStore(),
+    secret: 'oldspicesecretkey'
+}));
+
+app.use((req, res, next) => {
+    app.locals.email = req.session.email;
+    next();
+})
 
 app.get('/api/seniors', (req, res, err) => {
     Seniors
@@ -23,7 +35,6 @@ app.get('/api/seniors', (req, res, err) => {
         })
         .catch(err)
 });
-
 
 app.post('/api/seniors', (req, res, err) => {
     Seniors
@@ -65,6 +76,21 @@ app.get('/api/seniors/:userId', (req, res, err) => {
         .then(senior => res.status(200).json(senior))
         .catch(err)
 })
+
+
+app.post('/api/login', ( { session, body: {email, password}}, res, err ) => {
+    
+    Seniors.findOne({ email })
+        .then(user => {
+            if (user && password === user.password) {
+                session.user = user;
+                res.status(200).json(session.user);
+            } else {
+                res.status(400).json(err)
+            }
+        })
+})
+
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URL, () => {
