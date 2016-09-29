@@ -13,12 +13,16 @@ app.controller('CreateProfileCtrl', function($scope, $routeParams, $http) {
       age: $scope.age,
       location: $scope.location,
       gender: $scope.gender,
+      profilePicture: $scope.profilePicture,
+      biography: $scope.biography,
       preferences: {
         minAge: ageRangeSlider.val().split(',')[0],
         maxAge: ageRangeSlider.val().split(',')[1],
         gender: $scope.genderPreference
       }
     };
+
+    console.log("PROFILE", userProfile);
 
     // Build up path to user
     const userPath = `/api/seniors/${userId}`;
