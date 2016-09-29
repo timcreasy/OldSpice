@@ -1,3 +1,19 @@
 <div ng-repeat="user in users | filter: searchText.search">
- <a ng-href="#/profile/{{user._id}}"<h1>{{user.profile.name}}</h1>
+  <div class="col col-sm-4">
+     <a ng-href="#/profile/{{user._id}}">
+        <div class="card">
+          <div>
+            <img class="card-img-top cardImage" ng-src="{{user.profile.profilePicture}}" alt="Card image cap">
+          </div>
+          <div class="card-block">
+            <h4 class="card-title">{{user.profile.name}}</h4>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{user.profile.age}}</li>
+            <li class="list-group-item">{{user.profile.gender}}</li>
+            <li class="list-group-item">{{user.profile.location}}</li>
+          </ul>
+        </div>
+      </a>
+    </div>
 </div>

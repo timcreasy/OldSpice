@@ -1,4 +1,4 @@
-app.controller('CreateProfileCtrl', function($scope, $routeParams, $http) {
+app.controller('CreateProfileCtrl', function($scope, $routeParams, $http, $location) {
 
   // Age slider method
   const ageRangeSlider = $("#ageRange").slider({});
@@ -13,6 +13,8 @@ app.controller('CreateProfileCtrl', function($scope, $routeParams, $http) {
       age: $scope.age,
       location: $scope.location,
       gender: $scope.gender,
+      profilePicture: $scope.profilePicture,
+      biography: $scope.biography,
       preferences: {
         minAge: ageRangeSlider.val().split(',')[0],
         maxAge: ageRangeSlider.val().split(',')[1],
@@ -25,10 +27,9 @@ app.controller('CreateProfileCtrl', function($scope, $routeParams, $http) {
 
     $http.put(userPath, {profile: userProfile})
       .then((user) => {
-
       })
       .catch();
 
-    console.log(userProfile);
+    $location.path('browse');
   }
 });
