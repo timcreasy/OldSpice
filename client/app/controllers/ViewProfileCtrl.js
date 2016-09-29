@@ -1,4 +1,4 @@
-app.controller('ViewProfileCtrl', function($scope, $routeParams, $http, $rootScope) {
+app.controller('ViewProfileCtrl', function($scope, $routeParams, $http, $rootScope, $location) {
   const userPath = `/api/seniors/${$routeParams.userId}`;
   $scope.user = "";
   $http.get(userPath)
@@ -34,8 +34,9 @@ app.controller('ViewProfileCtrl', function($scope, $routeParams, $http, $rootSco
     }
 
     $http.post('/api/chats', usersObj)
-      .then((response) => {
-        console.log(response);
+      .then(({data}) => {
+        console.log(data._id)
+        $location.path(`chats/${data._id}`)
       })
 
   }

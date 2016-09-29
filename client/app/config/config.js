@@ -24,5 +24,9 @@ app.config(function($routeProvider) {
       controller: 'ViewProfileCtrl',
       templateUrl: 'partials/view_profile.html'
     })
+    .when('/chats/:id', {
+      controller: 'ViewProfileCtrl',
+      templateUrl: 'partials/chat.html'
+    })
     .otherwise('/');
 })
