@@ -14,6 +14,7 @@ const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/oldspi
 // mongoose models
 const Seniors = require('./models/senior.js')
 const Chats = require('./models/chat.js')
+const Messages = require('./models/message.js')
 
 app.use(express.static('client'));
 app.use(json());
@@ -60,7 +61,10 @@ app.post('/api/chats', (req, res, err) => {
     const createNewChat = (users) => {
         console.log("in the function ", users)
         Chats
-            .create({users: users, messages: []})           
+            .create({users: users, messages: []})
+            .then((chat) => {
+                res.json(chat);
+            })
     };
 
     Chats
@@ -69,11 +73,11 @@ app.post('/api/chats', (req, res, err) => {
             if (chat.length !== 0) {
 
                 console.log(chat)
-                 res.json(chat) }
-            else { 
+                 res.json(chat[0]) }
+            else {
                 console.log("hello from the else")
-                createNewChat(users)     
-            }     
+                createNewChat(users)
+            }
         })
         .catch(err)
 })
@@ -81,7 +85,7 @@ app.post('/api/chats', (req, res, err) => {
 app.put('/api/chats/:chatId', (req, res, err) => {
 
     const chatId = req.params.chatId
-    const updates = {$push: {messages: {author: req.session.user.profile.name, message: req.body}}}
+    const updates = {$push: {messages: {author: req.session.user.profile.name, message: req.body.message}}}
 
     Chats
         .findByIdAndUpdate(chatId, updates)
@@ -89,6 +93,31 @@ app.put('/api/chats/:chatId', (req, res, err) => {
         .catch(err)
 })
 
+app.post('/api/messages', (req, res) => {
+    Messages.create({
+        message: req.body.message,
+        author: req.body.author,
+        id: req.body.id
+    })
+
+})
+
+app.get('/api/messages/:id', (req,res) => {
+    Messages.find({id: req.params.id})
+    .then(messages => res.json(messages))
+})
+
+app.get('/api/chats/:chatId', (req, res, err) => {
+
+    const chatId = req.params.chatId;
+
+    Chats
+        .find({"_id": chatId})
+        .then((chatObject) => {
+            res.json( { chatObject} )
+        })
+        .catch(err)
+})
 
 
 app.put('/api/seniors/:userId', (req, res, err) => {
@@ -122,6 +151,10 @@ app.post('/api/login', ( { session, body: {email, password}}, res, err ) => {
             }
         })
 })
+
+app.use((req, res) =>
+  res.sendFile(process.cwd() + '/client/index.html')
+)
 
 
 mongoose.Promise = Promise;
