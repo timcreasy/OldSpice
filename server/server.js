@@ -77,7 +77,25 @@ app.get('/api/seniors/:userId', (req, res, err) => {
         .findById(userId)
         .then(senior => res.status(200).json(senior))
         .catch(err)
+});
+
+app.get('/api/chats/:chatId', (req, res, err) => {
+    const chatId = req.params.chatId;
+    Chats
+        .find(chatId)
+        .then(chat => res.status(200).json(chat))
+        .catch(err)
 })
+
+app.post('/api/chats/:chatId', (req, res, err) => {
+    const chatId = req.params.chatId;
+    Chats 
+        .find({ users_id: chatId })
+        .then(chat => res.status(200).json(chat))
+        .catch(err)
+})
+
+
 
 
 app.post('/api/login', ( { session, body: {email, password}}, res, err ) => {
