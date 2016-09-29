@@ -55,11 +55,41 @@ app.get('/api/chats', (req, res, err) => {
 })
 
 app.post('/api/chats', (req, res, err) => {
+    const users = req.body.users
+
+    const createNewChat = (users) => {
+        console.log("in the function ", users)
+        Chats
+            .create({users: users, messages: []})           
+    };
+
     Chats
-        .create(req.body)
-        .then(chat => res.status(201).json(chat))
+        .find({$and: [{"users.userId": users[0].userId }, {"users.userId": users[1].userId } ] })
+        .then((chat) => {
+            if (chat.length !== 0) {
+
+                console.log(chat)
+                 res.json(chat) }
+            else { 
+                console.log("hello from the else")
+                createNewChat(users)     
+            }     
+        })
         .catch(err)
 })
+
+app.put('/api/chats/:chatId', (req, res, err) => {
+
+    const chatId = req.params.chatId
+    const updates = {$push: {messages: {author: req.session.user.profile.name, message: req.body}}}
+
+    Chats
+        .findByIdAndUpdate(chatId, updates)
+        .then(message => res.status(200).json(message))
+        .catch(err)
+})
+
+
 
 app.put('/api/seniors/:userId', (req, res, err) => {
     const updatedInformation = req.body;
